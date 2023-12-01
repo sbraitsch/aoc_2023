@@ -7,17 +7,15 @@ pub fn solve() {
 }
 
 fn part_one(lines: &Vec<String>) -> u32 {
-    let mut sum = 0;
-    for s in lines {
-        let numericals: Vec<u32> = s
+    lines.into_iter()
+        .map(|line| line
             .chars()
             .into_iter()
             .filter_map(|c| c.to_digit(10))
-            .collect();
-        let (Some(x), Some(y)) = (numericals.first(), numericals.last()) else { panic!("Invalid Line in Input") };
-        sum += x * 10 + y;
-    }
-    sum
+            .collect::<Vec<u32>>()
+        )
+        .map(|digits| digits.first().unwrap() * 10 + digits.last().unwrap())
+        .sum()
 }
 
 fn part_two(lines: &Vec<String>) -> u32 {
