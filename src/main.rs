@@ -2,8 +2,9 @@
 mod utils;
 mod day_1;
 mod day_2;
+mod day_3;
 
 
 fn main() {
-    day_2::solution::solve();
+    day_3::solution::solve();
 }
