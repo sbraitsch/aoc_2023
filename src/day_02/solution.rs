@@ -40,7 +40,7 @@ impl CubeData {
 }
 
 pub fn solve() {
-    let parsed_cube_data = utils::file_to_lines(2)
+    let parsed_cube_data = utils::file_to_lines("02")
         .iter()
         .map(|line| CubeData::from_string(line.split_once(": ").unwrap().1.replace(';', ",")))
         .collect();

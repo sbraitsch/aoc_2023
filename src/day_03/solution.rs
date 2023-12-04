@@ -82,7 +82,7 @@ impl Element {
     }
 }
 pub fn solve() {
-    let elements = Element::from_input(&utils::file_to_lines(3));
+    let elements = Element::from_input(&utils::file_to_lines("03"));
     println!("Part 1: {:?}", part_one(&elements));
     println!("Part 2: {:?}", part_two(&elements));
 }

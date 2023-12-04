@@ -1,10 +1,11 @@
 #![allow(dead_code)]
 mod utils;
-mod day_1;
-mod day_2;
-mod day_3;
+mod day_01;
+mod day_02;
+mod day_03;
+mod day_04;
 
 
 fn main() {
-    day_3::solution::solve();
+    day_04::solution::solve();
 }
