@@ -1,7 +1,6 @@
 use crate::utils;
 use std::collections::hash_map::Entry;
 use std::collections::{HashMap, HashSet};
-use std::pin::Pin;
 
 pub fn solve() {
     let lines = utils::file_to_lines("04")

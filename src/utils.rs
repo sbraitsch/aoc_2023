@@ -1,7 +1,7 @@
 use std::fs::{read_to_string, File};
 use std::io::{self, BufRead};
 
-pub fn file_to_string(day: u32) -> String {
+pub fn file_to_string(day: &str) -> String {
     read_to_string(format!("src/day_{day}/input.txt")).unwrap()
 }
 
