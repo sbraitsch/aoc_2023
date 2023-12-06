@@ -1,6 +1,7 @@
 use crate::utils;
 use std::collections::hash_map::Entry;
 use std::collections::{HashMap, HashSet};
+use std::time::Instant;
 
 pub fn solve() {
     let lines = utils::file_to_lines("04")
@@ -19,8 +20,11 @@ pub fn solve() {
             )
         })
         .collect::<Vec<(HashSet<usize>, HashSet<usize>)>>();
-    println!("Part 1: {:?}", part_one(&lines));
-    println!("Part 2: {:?}", part_two(&lines));
+
+    let mut time = Instant::now();
+    println!("Part 1: {:?} in {:?}", part_one(&lines), time.elapsed());
+    time = Instant::now();
+    println!("Part 2: {:?} in {:?}", part_two(&lines), time.elapsed());
 }
 
 fn part_one(cards: &Vec<(HashSet<usize>, HashSet<usize>)>) -> u32 {

@@ -1,9 +1,12 @@
+use std::time::Instant;
 use crate::utils;
 
 pub fn solve() {
     let lines = utils::file_to_lines("01");
-    println!("Part 1: {:?}", part_one(&lines));
-    println!("Part 2: {:?}", part_two(&lines));
+    let mut time = Instant::now();
+    println!("Part 1: {:?} in {:?}", part_one(&lines), time.elapsed());
+    time = Instant::now();
+    println!("Part 2: {:?} in {:?}", part_one(&lines), time.elapsed());
 }
 
 fn part_one(lines: &Vec<String>) -> u32 {

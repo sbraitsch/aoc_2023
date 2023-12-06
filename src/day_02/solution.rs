@@ -1,3 +1,4 @@
+use std::time::Instant;
 use crate::utils;
 
 struct CubeData(u32, u32, u32);
@@ -44,8 +45,10 @@ pub fn solve() {
         .iter()
         .map(|line| CubeData::from_string(line.split_once(": ").unwrap().1.replace(';', ",")))
         .collect();
-    println!("Part 1: {:?}", part_one(&parsed_cube_data));
-    println!("Part 2: {:?}", part_two(&parsed_cube_data));
+    let mut time = Instant::now();
+    println!("Part 1: {:?} in {:?}", part_one(&parsed_cube_data), time.elapsed());
+    time = Instant::now();
+    println!("Part 2: {:?} in {:?}", part_two(&parsed_cube_data), time.elapsed());
 }
 
 fn part_one(cube_data: &Vec<CubeData>) -> usize {
