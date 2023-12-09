@@ -12,9 +12,7 @@ pub fn solve() {
 
     lines[2..].into_iter().for_each(|line| {
         let split =  line.split_once(" = ").unwrap();
-        let key = split.0;
-        let (left, right) = split.1.trim_matches(|c| c == '(' || c == ')').split_once(", ").unwrap();
-        node_map.insert(key, (left, &right));
+        node_map.insert(split.0, split.1.trim_matches(|c| c == '(' || c == ')').split_once(", ").unwrap());
     });
 
     let mut time = Instant::now();
@@ -41,8 +39,6 @@ fn part_one(map: &NodeMap, directions: &Vec<char>, start: &str, part_2: bool) ->
 
 fn part_two(map: &NodeMap, directions: &Vec<char>) -> usize {
     map.iter().filter(|(k, _)| k.ends_with('A')).map(|(k, _)| {
-        let cycle = part_one(map, directions, k, true);
-        println!("Cycle for {k} -> {cycle}");
-        cycle
+        part_one(map, directions, k, true)
     }).fold(1, |acc, x| lcm(acc, x))
 }
