@@ -1,3 +1,4 @@
+use std::collections::HashSet;
 use crate::day_10::solution::Direction::{DOWN, LEFT, RIGHT, UP};
 use crate::utils;
 use rayon::prelude::*;
@@ -26,7 +27,6 @@ pub fn solve() {
         })
         .collect();
 
-    let mut time = Instant::now();
     let start_points = vec![
         start_idx - 1,
         start_idx + 1,
@@ -39,17 +39,19 @@ pub fn solve() {
         .max_by(|a, b| a.len().cmp(&&b.len()))
         .unwrap();
 
+    let mut time = Instant::now();
     println!("Part 1: {:?} in {:?}", part_one(&max_loop), time.elapsed());
     time = Instant::now();
     println!(
         "Part 2: {:?} in {:?}",
-        part_two(&max_loop, lines),
+        part_two(&max_loop, map),
         time.elapsed()
     );
 }
 
-fn get_loop(map: &Vec<Vec<char>>, start: usize, first: usize, dim: usize) -> Vec<usize> {
-    let mut indices = vec![];
+fn get_loop(map: &Vec<Vec<char>>, start: usize, first: usize, dim: usize) -> HashSet<usize> {
+    let mut indices = HashSet::new();
+    indices.insert(start);
     let mut cur = first;
     let mut prev = start;
     let mut next;
@@ -89,7 +91,7 @@ fn get_loop(map: &Vec<Vec<char>>, start: usize, first: usize, dim: usize) -> Vec
             'S' => start,
             _ => start,
         };
-        indices.push(cur);
+        indices.insert(cur);
         prev = cur;
         cur = next;
     }
@@ -115,22 +117,25 @@ fn get_dir(cur: &usize, prev: &usize) -> Direction {
     }
 }
 
-fn part_one(lp: &Vec<usize>) -> usize {
-    lp.len() / 2 + 1
+fn part_one(pipe_loop: &HashSet<usize>) -> usize {
+    pipe_loop.len() / 2
 }
 
-fn part_two(lp: &Vec<usize>, lines: Vec<String>) -> usize {
-    let offset = lines.len() / 4;
-    let range = offset..lines.len() - offset;
-    lines[range.clone()]
-        .iter()
-        .enumerate()
-        .map(|(y, line)| {
-            line[range.clone()]
-                .chars()
-                .enumerate()
-                .filter(|(x, char)| !lp.contains(&((y + offset) * line.len() + x + offset)))
-                .count()
-        })
-        .sum()
+fn part_two(pipe_loop: &HashSet<usize>, map: Vec<Vec<char>>) -> usize {
+    map.into_par_iter().enumerate().map(|(y,row)| {
+        let mut inside = false;
+        row.iter().enumerate().map(|(x,pipe)| {
+            return if pipe_loop.contains(&(y * row.len() + x)) {
+                match pipe {
+                    '|' | '7' | 'F' | 'S' => inside = !inside,
+                    _ => {},
+                };
+                0
+            } else if inside {
+                1
+            } else {
+                0
+            }
+        }).sum::<usize>()
+    }).sum()
 }
