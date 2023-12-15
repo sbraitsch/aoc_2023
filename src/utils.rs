@@ -12,24 +12,3 @@ pub fn file_to_lines(day: &str) -> Vec<String> {
         .map(|l| l.expect("Error parsing line"))
         .collect()
 }
-
-pub mod custom_macros {
-    #[macro_export()]
-    macro_rules! map {
-        // Base case: an empty map
-        () => {
-            std::collections::HashMap::new()
-        };
-
-        // Recursive case: create a map with key-value pairs
-        ($($key:expr => $value:expr),* $(,)?) => {
-            {
-                let mut temp_map = std::collections::HashMap::new();
-                $(
-                    temp_map.insert($key, $value);
-                )*
-                temp_map
-            }
-        };
-    }
-}
