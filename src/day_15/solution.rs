@@ -29,7 +29,7 @@ fn part_two(segments: &Vec<&str>) -> usize {
                     if let Some(idx) = vec.iter().position(|e| e.0 == label) {
                         vec.remove(idx);
                     }
-                }).or_insert(vec![(String::from(label), 0)]);
+                });
             },
             false => {
                 let (label, focal_str) = seg.split_once('=').unwrap();
